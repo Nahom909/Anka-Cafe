@@ -1,0 +1,8 @@
+# Bildschirmaufnahmen / Videos nicht ins Repo
+*.mp4
+*.mov
+*.webm
+
+# Betriebssystem-/Editor-Kram
+Thumbs.db
+.DS_Store
