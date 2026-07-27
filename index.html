@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     ANKA CAFÉ – Vorschau-Website (eine Datei, kein Build-Step)
+     ------------------------------------------------------------
+     BILDER:  Die Fotos in  images/  sind repräsentative Platzhalter
+     (frei nutzbar, Unsplash) und sollten vor dem Launch durch
+     ECHTE Fotos des Cafés ersetzt werden – einfach die Dateien in
+     images/ unter gleichem Namen austauschen.
+     Offene Angaben stehen in eckigen Klammern:  [ … ]
+       [E-Mail]  ·  Gästestimmen  ·  einzelne FAQ-Antworten
+     ============================================================ -->
+
+<title>Anka Café – Türkisches Café &amp; Patisserie in Dreieich</title>
+<meta name="description" content="Anka Café in Dreieich: türkisches Café &amp; Patisserie mit hausgemachtem Baklava, üppigem Frühstück, Meze und gutem Kaffee. Hauptstraße 43 – vorbeikommen oder unter 06103 8701060 anrufen.">
+<meta property="og:title" content="Anka Café – Türkisches Café &amp; Patisserie in Dreieich">
+<meta property="og:description" content="Hausgemachte Patisserie, türkisches Frühstück, Meze und guter Kaffee – mitten in Dreieich.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EE; --paper-2:#F3EADB; --paper-3:#ECE0CC; --card:#FFFFFF;
+    --ink:#2A241C; --ink-soft:#6A5F4F;
+    --accent:#BE8A45; --accent-deep:#9C6B2C; --accent-2:#7C8759;
+    --line:rgba(42,36,28,0.12); --line-2:rgba(42,36,28,0.22);
+    --maxw:1160px; --ease:cubic-bezier(.22,.61,.36,1);
+    --glow:0 26px 60px -26px rgba(158,107,44,.55);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Work Sans',sans-serif; font-weight:400; line-height:1.68; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  h1,h2,h3,h4{ font-family:'Fraunces',serif; font-weight:500; margin:0; letter-spacing:-0.015em; }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 34px; }
+  section{ padding:108px 0; position:relative; }
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  /* ===== BUTTONS (Hover: aufleuchten, dunkler, größer) ===== */
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; padding:14px 27px; border-radius:100px;
+    font-family:'Work Sans',sans-serif; font-size:15px; font-weight:500; text-decoration:none;
+    border:1px solid transparent; cursor:pointer;
+    transition:transform .3s var(--ease), background .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+  }
+  .btn svg{ width:18px; height:18px; }
+  .btn-primary{ background:var(--accent); color:#fff; box-shadow:0 10px 24px -12px rgba(158,107,44,.7); }
+  .btn-primary:hover{ background:var(--accent-deep); transform:translateY(-2px) scale(1.04); box-shadow:0 18px 34px -12px rgba(158,107,44,.85), 0 0 0 4px rgba(190,138,69,.18); }
+  .btn-ghost{ color:var(--ink); border-color:var(--line-2); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--ink); transform:translateY(-2px) scale(1.04); box-shadow:0 14px 30px -16px rgba(42,36,28,.5); }
+  .btn-light{ background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.5); backdrop-filter:blur(4px); }
+  .btn-light:hover{ background:rgba(255,255,255,.24); transform:translateY(-2px) scale(1.04); box-shadow:0 0 0 4px rgba(255,255,255,.14); }
+
+  /* ===== NAV ===== */
+  .nav{ position:fixed; top:0; left:0; right:0; z-index:60; transition:background .4s ease, box-shadow .4s ease, border-color .4s ease; border-bottom:1px solid transparent; }
+  .nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .nav.scrolled{ background:rgba(251,246,238,.85); backdrop-filter:saturate(150%) blur(12px); -webkit-backdrop-filter:saturate(150%) blur(12px); border-bottom:1px solid var(--line); }
+  .logo{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:25px; text-decoration:none; display:flex; align-items:center; gap:10px; letter-spacing:.01em; color:#fff; transition:color .4s ease; }
+  .nav.scrolled .logo{ color:var(--ink); }
+  .logo .mark{ width:34px; height:34px; border-radius:50%; display:grid; place-items:center; flex:0 0 auto; background:var(--accent); color:#fff; font-style:normal; font-size:18px; box-shadow:0 6px 16px -8px rgba(0,0,0,.5); }
+  .nav-links{ display:flex; align-items:center; gap:32px; }
+  .nav-links a{ text-decoration:none; font-size:15px; color:rgba(255,255,255,.9); transition:color .25s ease; }
+  .nav.scrolled .nav-links a{ color:var(--ink-soft); }
+  .nav-links a:hover{ color:#fff; }
+  .nav.scrolled .nav-links a:hover{ color:var(--ink); }
+  .nav-links a.btn{ color:#fff; }
+  .nav-links .btn{ padding:10px 20px; font-size:14px; }
+  .nav-toggle{ display:none; }
+  .nav .nav-toggle{ color:#fff; }
+  .nav.scrolled .nav-toggle{ color:var(--ink); }
+
+  /* ===== HERO (cinematisch, Foto + Ken-Burns + dunkler Scrim) ===== */
+  .hero{ position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; }
+  .hero-media{ position:absolute; inset:0; z-index:0; background:#2A241C url("images/hero.jpg") center/cover no-repeat; animation:kenburns 28s var(--ease) infinite alternate; will-change:transform; }
+  .hero-scrim{ position:absolute; inset:0; z-index:1; background:
+      linear-gradient(180deg, rgba(20,15,10,.45) 0%, rgba(20,15,10,0) 26%, rgba(20,15,10,.15) 55%, rgba(20,15,10,.82) 100%),
+      linear-gradient(90deg, rgba(20,15,10,.6) 0%, rgba(20,15,10,0) 60%); }
+  .hero-inner{ position:relative; z-index:2; width:100%; padding-bottom:96px; padding-top:120px; }
+  .eyebrow{ font-size:13px; text-transform:uppercase; letter-spacing:.22em; color:#E7C68A; margin-bottom:22px; display:inline-flex; align-items:center; gap:12px; font-weight:600; }
+  .eyebrow::before{ content:""; width:30px; height:2px; border-radius:2px; background:#E5B978; }
+  .hero h1{ font-size:clamp(52px,10vw,120px); line-height:.92; letter-spacing:-0.03em; color:#fff; text-shadow:0 2px 40px rgba(0,0,0,.35); }
+  .hero h1 em{ font-style:italic; font-weight:400; color:#EBC58A; }
+  .hero .sub{ margin-top:26px; font-size:clamp(17px,2.1vw,20px); max-width:46ch; color:rgba(255,255,255,.9); font-weight:300; }
+  .cta-row{ margin-top:38px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .hero-meta{ margin-top:40px; display:flex; gap:26px; flex-wrap:wrap; font-size:14px; color:rgba(255,255,255,.82); }
+  .hero-meta span{ display:inline-flex; align-items:center; gap:8px; }
+  .hero-meta svg{ width:16px; height:16px; color:#E5B978; }
+  .scroll-cue{ position:absolute; z-index:2; left:50%; bottom:26px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:rgba(255,255,255,.8); text-decoration:none; font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+  .scroll-cue .dot{ width:24px; height:38px; border:1.5px solid rgba(255,255,255,.5); border-radius:20px; position:relative; }
+  .scroll-cue .dot::after{ content:""; position:absolute; left:50%; top:8px; width:4px; height:8px; border-radius:3px; background:#E5B978; transform:translateX(-50%); animation:cue 1.6s ease-in-out infinite; }
+  .hero .anim{ opacity:0; transform:translateY(24px); animation:heroIn 1s var(--ease) forwards; }
+  .hero .a1{ animation-delay:.15s; } .hero .a2{ animation-delay:.32s; } .hero .a3{ animation-delay:.48s; } .hero .a4{ animation-delay:.62s; } .hero .a5{ animation-delay:.76s; }
+
+  /* ===== SECTION HEAD ===== */
+  .kicker{ font-size:13px; text-transform:uppercase; letter-spacing:.18em; color:var(--accent-deep); font-weight:600; display:inline-flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .kicker::before{ content:""; width:22px; height:2px; background:var(--accent); border-radius:2px; }
+  .section-head{ max-width:680px; margin-bottom:56px; }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .section-head.center .kicker{ justify-content:center; }
+  .section-head h2{ font-size:clamp(30px,4.6vw,50px); line-height:1.05; }
+  .section-head h2 em{ font-style:italic; color:var(--accent-deep); font-weight:400; }
+  .section-head p{ margin:16px 0 0; color:var(--ink-soft); font-weight:300; font-size:17px; }
+
+  /* ===== HOVER-UTILITYS ===== */
+  .card-hover{ transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .35s ease; }
+  .card-hover:hover{ transform:translateY(-7px) scale(1.015); box-shadow:var(--glow); border-color:var(--accent); }
+  .zoom{ overflow:hidden; position:relative; }
+  .zoom img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease), filter .45s ease; }
+  .zoom:hover img{ transform:scale(1.07); filter:brightness(.9); }
+  .zoom::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 0 0 0 rgba(190,138,69,0); transition:box-shadow .4s ease; pointer-events:none; }
+  .zoom:hover::after{ box-shadow:inset 0 0 0 2px rgba(190,138,69,.85); }
+
+  /* ===== ÜBER UNS ===== */
+  .about{ display:grid; grid-template-columns:0.92fr 1.08fr; gap:66px; align-items:center; }
+  .about .quote{ font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(23px,2.8vw,32px); line-height:1.35; margin-bottom:22px; }
+  .about p{ color:var(--ink-soft); font-weight:300; font-size:16.5px; margin:0 0 16px; }
+  .about .sign{ margin-top:26px; font-family:'Fraunces',serif; font-style:italic; font-size:19px; color:var(--ink); }
+  .about .sign small{ display:block; font-family:'Work Sans'; font-style:normal; font-size:13px; letter-spacing:.04em; color:var(--ink-soft); text-transform:uppercase; margin-top:4px; }
+  .frame{ position:relative; }
+  .frame .media{ border-radius:230px 230px 26px 26px; aspect-ratio:4/5; box-shadow:0 40px 70px -40px rgba(42,36,28,.5); }
+  .frame .badge{ position:absolute; right:-14px; bottom:26px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 20px; box-shadow:0 24px 40px -26px rgba(42,36,28,.5); text-align:center; }
+  .frame .badge .n{ font-family:'Fraunces',serif; font-size:26px; color:var(--accent-deep); line-height:1; }
+  .frame .badge .t{ font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:5px; }
+
+  /* ===== HIGHLIGHTS (Karten mit Bild) ===== */
+  .highlights{ background:var(--paper-2); }
+  .hl-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .hl-card{ background:var(--card); border:1px solid var(--line); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
+  .hl-card .hl-img{ aspect-ratio:16/11; border-radius:0; }
+  .hl-card .hl-body{ padding:26px 26px 30px; display:flex; flex-direction:column; gap:12px; }
+  .hl-card .ic{ width:46px; height:46px; border-radius:13px; display:grid; place-items:center; background:rgba(190,138,69,.14); color:var(--accent-deep); margin-top:-46px; position:relative; z-index:2; border:3px solid var(--card); }
+  .hl-card .ic svg{ width:24px; height:24px; }
+  .hl-card h3{ font-size:22px; }
+  .hl-card p{ margin:0; font-size:15px; color:var(--ink-soft); font-weight:300; }
+
+  /* ===== SHOWCASE (Parallax-Bildband) ===== */
+  .showcase{ position:relative; min-height:80vh; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; background-size:cover; background-position:center; background-attachment:fixed; }
+  .showcase::before{ content:""; position:absolute; inset:0; background:linear-gradient(rgba(26,19,12,.52), rgba(26,19,12,.58)); }
+  .showcase .inner{ position:relative; z-index:1; padding:60px 34px; max-width:760px; }
+  .showcase .kicker{ color:#E5B978; justify-content:center; }
+  .showcase .kicker::before{ background:#E5B978; }
+  .showcase h2{ color:#fff; font-size:clamp(30px,5.2vw,56px); line-height:1.06; }
+  .showcase h2 em{ font-style:italic; color:#EBC58A; font-weight:400; }
+  .showcase p{ color:rgba(255,255,255,.86); font-weight:300; font-size:18px; margin:18px auto 0; max-width:52ch; }
+
+  /* ===== SPEISEKARTE (dunkel, echte Karte) ===== */
+  .menu{ background:var(--ink); color:#F0E7D8; }
+  .menu .kicker{ color:#E5B978; } .menu .kicker::before{ background:#E5B978; }
+  .menu .section-head h2{ color:#FBF6EE; } .menu .section-head h2 em{ color:#E5B978; } .menu .section-head p{ color:#C6BAA6; }
+  .menu-cols{ column-count:2; column-gap:56px; }
+  .menu-cat{ break-inside:avoid; margin:0 0 34px; padding:22px 22px 8px; border:1px solid rgba(240,231,216,.14); border-radius:16px; transition:border-color .35s ease, box-shadow .4s ease, transform .4s var(--ease); background:rgba(255,255,255,.015); }
+  .menu-cat:hover{ border-color:rgba(229,185,120,.6); box-shadow:0 26px 50px -30px rgba(0,0,0,.7); transform:translateY(-4px); }
+  .menu-cat h3{ font-size:20px; color:#FBF6EE; display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+  .menu-cat h3 svg{ width:20px; height:20px; color:#E5B978; flex:0 0 auto; }
+  .menu-cat .cat-note{ font-size:12.5px; color:#B7AA95; font-weight:300; margin:0 0 14px; }
+  .menu-item{ display:flex; justify-content:space-between; gap:16px; align-items:baseline; padding:11px 0; border-bottom:1px dotted rgba(240,231,216,.16); }
+  .menu-item:last-child{ border-bottom:none; }
+  .mi-name{ font-weight:500; font-size:15.5px; color:#FBF6EE; }
+  .mi-desc{ font-size:13px; color:#B7AA95; font-weight:300; margin-top:3px; max-width:42ch; }
+  .mi-price{ font-family:'Fraunces',serif; font-weight:500; color:#E5B978; white-space:nowrap; font-size:15.5px; }
+  .mi-price.muted{ color:#9C8E78; font-style:italic; font-size:13px; font-family:'Work Sans'; }
+  .menu-note{ margin-top:26px; font-size:13px; color:#B7AA95; font-weight:300; text-align:center; }
+
+  /* ===== GALERIE (Bento, groß) ===== */
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:260px; gap:16px; }
+  .gallery-grid > *{ border-radius:18px; }
+  .g-tall{ grid-row:span 2; } .g-wide{ grid-column:span 2; }
+  .gcap{ position:absolute; left:0; right:0; bottom:0; z-index:2; padding:16px 18px; color:#fff; font-size:14px; font-weight:500; background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.55)); opacity:0; transform:translateY(8px); transition:opacity .4s ease, transform .4s ease; }
+  .zoom:hover .gcap{ opacity:1; transform:none; }
+
+  /* ===== GÄSTESTIMMEN ===== */
+  .reviews{ background:var(--paper-2); overflow:hidden; }
+  .rev-marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); }
+  .rev-track{ display:flex; gap:24px; width:max-content; padding:6px 0; }
+  .rev-track.rev-ready{ animation:marquee-right 52s linear infinite; }
+  .rev-marquee:hover .rev-track.rev-ready{ animation-play-state:paused; }
+  .rev-card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:30px 28px; flex:0 0 340px; width:340px; }
+  .stars{ display:flex; gap:3px; color:var(--accent); margin-bottom:16px; }
+  .stars svg{ width:18px; height:18px; }
+  .rev-card p{ margin:0 0 18px; font-size:16px; color:var(--ink); font-weight:300; font-style:italic; font-family:'Fraunces',serif; line-height:1.5; }
+  .rev-card .who{ font-size:14px; color:var(--ink-soft); font-weight:500; }
+
+  /* ===== KONTAKT & ÖFFNUNGSZEITEN ===== */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .contact-info p{ font-size:16px; color:var(--ink); font-weight:300; margin:0 0 18px; }
+  .contact-info a.u{ text-decoration:underline; text-underline-offset:3px; }
+  .contact-info .btn{ margin:6px 10px 0 0; }
+  .hours-card{ background:var(--card); border:1px solid var(--line); border-radius:22px; padding:34px 32px; box-shadow:0 30px 50px -40px rgba(42,36,28,.4); }
+  .hours-title{ display:flex; align-items:center; gap:10px; margin-bottom:20px; font-family:'Fraunces',serif; font-size:21px; }
+  .hours-title svg{ width:21px; height:21px; color:var(--accent-deep); }
+  .hours-table{ width:100%; border-collapse:collapse; font-size:15.5px; }
+  .hours-table td{ padding:12px 0; border-bottom:1px solid var(--line); }
+  .hours-table td:first-child{ color:var(--ink-soft); }
+  .hours-table td:last-child{ text-align:right; font-variant-numeric:tabular-nums; }
+  .hours-table tr:last-child td{ border-bottom:none; }
+  .hours-table tr.today td{ color:var(--accent-deep); font-weight:600; }
+  .hours-foot{ margin-top:16px; font-size:13px; color:var(--ink-soft); font-weight:300; display:flex; align-items:center; gap:8px; }
+  .hours-foot .live{ width:9px; height:9px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 4px rgba(124,135,89,.18); }
+
+  /* ===== FAQ ===== */
+  .faq{ max-width:820px; }
+  .faq details{ border-bottom:1px solid var(--line); }
+  .faq summary{ cursor:pointer; list-style:none; padding:22px 0; font-size:18px; font-weight:500; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'Fraunces',serif; }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq summary::after{ content:"+"; font-family:'Fraunces',serif; font-size:26px; color:var(--accent); transition:transform .3s ease; }
+  .faq details[open] summary::after{ content:"–"; }
+  .faq details p{ margin:0 0 22px; color:var(--ink-soft); font-weight:300; font-size:15.5px; }
+
+  /* ===== CTA ===== */
+  .cta-band{ background:var(--paper-3); }
+  .cta-band .wrap{ text-align:center; }
+  .cta-band h2{ font-size:clamp(30px,4.6vw,52px); line-height:1.05; }
+  .cta-band h2 em{ font-style:italic; color:var(--accent-deep); font-weight:400; }
+  .cta-band p{ color:var(--ink-soft); font-weight:300; font-size:17px; margin:16px auto 30px; max-width:46ch; }
+  .cta-band .cta-row{ justify-content:center; }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--ink); color:#E4DACB; padding:70px 0 34px; font-size:14.5px; }
+  footer a{ color:#E4DACB; }
+  .footer-top{ display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:44px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.14); }
+  .footer-brand{ font-family:'Fraunces',serif; font-style:italic; font-size:26px; color:#fff; margin-bottom:14px; }
+  .footer-top p{ color:#C6BAA6; font-weight:300; max-width:36ch; margin:0 0 18px; }
+  .footer-col h4{ font-size:12.5px; text-transform:uppercase; letter-spacing:.14em; color:#B0A48F; margin:0 0 16px; font-weight:600; }
+  .footer-col a{ display:block; color:#CFC4B2; text-decoration:none; margin:0 0 10px; font-weight:300; transition:color .25s ease; }
+  .footer-col a:hover{ color:#fff; }
+  .social{ display:flex; gap:12px; }
+  .social a{ width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.22); display:grid; place-items:center; transition:border-color .25s ease, background .25s ease, transform .25s ease; }
+  .social a:hover{ border-color:#fff; background:rgba(255,255,255,.08); transform:translateY(-2px); }
+  .social svg{ width:18px; height:18px; }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:26px; color:#9A8E79; font-size:13px; }
+  .footer-bottom a{ color:#9A8E79; text-decoration:none; }
+  .footer-bottom a:hover{ color:#fff; }
+
+  /* ===== REVEAL ===== */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in{ opacity:1; transform:none; }
+  .reveal.d1{ transition-delay:.09s; } .reveal.d2{ transition-delay:.18s; } .reveal.d3{ transition-delay:.27s; }
+
+  /* ===== KEYFRAMES ===== */
+  @keyframes kenburns{ from{ transform:scale(1) translate(0,0); } to{ transform:scale(1.1) translate(-1.5%,-1.5%); } }
+  @keyframes cue{ 0%,100%{ transform:translate(-50%,0); opacity:1; } 50%{ transform:translate(-50%,10px); opacity:.35; } }
+  @keyframes heroIn{ to{ opacity:1; transform:none; } }
+  @keyframes marquee-right{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
+
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .hero-media, .scroll-cue .dot::after{ animation:none !important; }
+    .hero .anim{ opacity:1; transform:none; animation:none; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .showcase{ background-attachment:scroll; }
+    .card-hover:hover, .btn:hover, .zoom:hover img{ transform:none; }
+    .rev-track.rev-ready{ animation:none; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:960px){
+    section{ padding:78px 0; }
+    .nav-links{ position:fixed; top:76px; left:0; right:0; background:rgba(251,246,238,.98); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:0; padding:8px 0; display:none; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ padding:14px 34px; color:var(--ink-soft); }
+    .nav-links a.btn{ color:#fff; }
+    .nav-links .btn{ margin:12px 34px; justify-content:center; }
+    .nav-toggle{ display:inline-flex; background:none; border:none; cursor:pointer; padding:6px; }
+    .nav-toggle svg{ width:28px; height:28px; }
+    .about{ grid-template-columns:1fr; gap:46px; } .frame{ max-width:460px; margin:0 auto; }
+    .hl-grid{ grid-template-columns:1fr; max-width:440px; margin:0 auto; }
+    .menu-cols{ column-count:1; }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:220px; }
+    .rev-card{ flex-basis:300px; width:300px; padding:26px 24px; }
+    .contact-grid{ grid-template-columns:1fr; gap:40px; }
+    .footer-top{ grid-template-columns:1fr; gap:32px; }
+    .showcase{ background-attachment:scroll; min-height:64vh; }
+  }
+  @media (max-width:480px){
+    .wrap{ padding:0 22px; }
+    .gallery-grid{ grid-template-columns:1fr; grid-auto-rows:230px; } .g-wide{ grid-column:auto; } .g-tall{ grid-row:auto; }
+    .hero-meta{ gap:14px; }
+    .contact-info .btn{ width:100%; justify-content:center; margin-right:0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mark">a</span>anka&nbsp;café</a>
+    <button class="nav-toggle" aria-label="Menü öffnen" onclick="document.getElementById('navlinks').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="nav-links" id="navlinks">
+      <a href="#ueber">Über uns</a>
+      <a href="#karte">Speisekarte</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#kontakt">Kontakt</a>
+      <a class="btn btn-primary" href="tel:+4961038701060">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        Anrufen
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-media" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow anim a1">Türkisches Café &amp; Patisserie · Dreieich</p>
+    <h1 class="anim a2">Anka&nbsp;Café<br><em>süß, herzlich, hausgemacht.</em></h1>
+    <p class="sub anim a3">Baklava und Künefe frisch aus der Patisserie, ein üppiges türkisches Frühstück, hausgemachte Meze und richtig guter Kaffee – zum Ankommen, Verweilen und Wiederkommen.</p>
+    <div class="cta-row anim a4">
+      <a class="btn btn-primary" href="#karte">Speisekarte ansehen</a>
+      <a class="btn btn-light" href="tel:+4961038701060">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        06103 8701060
+      </a>
+    </div>
+    <div class="hero-meta anim a5">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Hauptstraße 43, Dreieich</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Täglich ab 9:30 Uhr</span>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#ueber" aria-label="Nach unten scrollen"><span class="dot"></span>entdecken</a>
+</header>
+
+<!-- ===== ÜBER UNS ===== -->
+<section id="ueber">
+  <div class="wrap about">
+    <div class="frame reveal">
+      <div class="media zoom"><img src="images/interior.jpg" alt="Gemütlicher Innenraum im Anka Café" loading="lazy"></div>
+      <div class="badge"><div class="n">2025</div><div class="t">seit</div></div>
+    </div>
+    <div class="reveal d1">
+      <span class="kicker">Willkommen</span>
+      <p class="quote">„Bei uns soll man ankommen, durchatmen und den Tag ein bisschen langsamer nehmen."</p>
+      <p>Das Anka Café ist ein türkisches Café &amp; eine Patisserie mitten in Dreieich. Bei uns duftet es nach frischem Gebäck, aus der Vitrine leuchten Baklava, Künefe und Kuchen des Tages – und dazu gibt es Kaffee, wie er sein soll.</p>
+      <p>[Zwei, drei persönliche Sätze über euch: wer dahintersteckt, was euch besonders macht, woher die Rezepte kommen. Zum Beispiel: „Unsere Süßspeisen und Meze machen wir nach Familienrezepten – handgemacht, jeden Tag frisch."]</p>
+      <div class="sign">Anka Café<small>Hauptstraße 43 · Dreieich</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HIGHLIGHTS ===== -->
+<section class="highlights">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Warum Anka</span>
+      <h2>Kleine Gründe, <em>immer wieder</em> vorbeizukommen.</h2>
+    </div>
+    <div class="hl-grid">
+      <div class="hl-card card-hover reveal">
+        <div class="hl-img zoom"><img src="images/baklava.jpg" alt="Frisches Baklava mit Pistazie" loading="lazy"></div>
+        <div class="hl-body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16v-7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7Z"/><path d="M4 15c2 0 2 1.4 4 1.4S10 15 12 15s2 1.4 4 1.4S18 15 20 15"/><path d="M12 4v3"/></svg></div>
+          <h3>Hausgemachte Patisserie</h3>
+          <p>Baklava, Künefe, San-Sebastian-Cheesecake &amp; Kuchen des Tages – frisch gemacht, süß wie es sein soll.</p>
+        </div>
+      </div>
+      <div class="hl-card card-hover reveal d1">
+        <div class="hl-img zoom"><img src="images/breakfast.jpg" alt="Türkisches Frühstück zum Teilen" loading="lazy"></div>
+        <div class="hl-body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h11v3a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5v-3Z"/><path d="M16 12h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M8 4c0 1-1 1.3-1 2.3M11 4c0 1-1 1.3-1 2.3"/></svg></div>
+          <h3>Türkisches Frühstück</h3>
+          <p>Vom „Feinen Start" bis zum großen „Anka Deluxe" für vier – Käse, Menemen, Kuymak &amp; Gebäck zum Teilen.</p>
+        </div>
+      </div>
+      <div class="hl-card card-hover reveal d2">
+        <div class="hl-img zoom"><img src="images/mokka.jpg" alt="Türkischer Mokka" loading="lazy"></div>
+        <div class="hl-body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a3 3 0 0 1 0 6h-1"/><path d="M4 8h14v5a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V8Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></div>
+          <h3>Kaffee &amp; Mokka</h3>
+          <p>Vom türkischen Mokka über Matcha Latte bis zum Dalgona &amp; hausgemachten Limonaden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SHOWCASE 1 ===== -->
+<section class="showcase" style="background-image:url('images/patisserie.jpg');">
+  <div class="inner reveal">
+    <span class="kicker">Aus der Vitrine</span>
+    <h2>Süßes, das <em>jeden Tag</em> frisch entsteht.</h2>
+    <p>Blätterteig, Pistazie und Sirup – unsere Patisserie ist das Herz vom Anka Café. Am besten warm, am besten mit einem Glas Çay.</p>
+  </div>
+</section>
+
+<!-- ===== SPEISEKARTE (echte Karte) ===== -->
+<section class="menu" id="karte">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Speisekarte</span>
+      <h2>Von <em>herzhaft</em> bis <em>süß</em>.</h2>
+      <p>Türkisches Frühstück, warme Gerichte, Meze, Salate, Süßes und eine große Auswahl an Kaffee, Tee &amp; Limonaden.</p>
+    </div>
+
+    <div class="menu-cols">
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"/></svg>Warme Gerichte</h3>
+        <div class="menu-item"><div><div class="mi-name">Eine Portion Börek mit Käse</div><div class="mi-desc">Hausgemachter Yufkateig gefüllt mit würzigem Weißkäse, knusprig gebacken. (v)</div></div><div class="mi-price">8,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Manti gebraten/gekocht mit Hackfleisch &amp; Joghurt</div><div class="mi-desc">Türkische Teigtaschen mit Rinderhack, Knoblauchjoghurt &amp; Paprikabutter.</div></div><div class="mi-price">9,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Manti gebraten/gekocht mit Kartoffel &amp; Joghurt</div><div class="mi-desc">Teigtaschen mit Kartoffelfüllung, Knoblauchjoghurt &amp; Paprikabutter. (v)</div></div><div class="mi-price">9,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h16a8 8 0 0 1-16 0Z"/><path d="M9 4c0 1-1 1.3-1 2.3M13 4c0 1-1 1.3-1 2.3"/></svg>Suppen</h3>
+        <div class="menu-item"><div><div class="mi-name">Täglich frische Linsensuppe</div><div class="mi-desc">(vo, v)</div></div><div class="mi-price">6,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Täglich wechselnde Suppe</div><div class="mi-desc">*Bitte nachfragen</div></div><div class="mi-price">6,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M6 21V10M18 21V10M4 10h16l-1-4H5l-1 4Z"/></svg>Frühstück</h3>
+        <div class="menu-item"><div><div class="mi-name">Feiner Start – ein sanfter Morgen</div><div class="mi-desc">Brot mit Butter, Frischkäse und wahlweise Marmelade oder Honig. Dazu eine große Tasse türkischer Tee.</div></div><div class="mi-price">7,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Grüner Morgen</div><div class="mi-desc">Brot, Hummus, gerösteter Auberginensalat mit Paprika &amp; Petersilie, Marmelade, getrocknete Früchte, Tomaten, Gurken &amp; Paprika.</div></div><div class="mi-price">15,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Goldener Start</div><div class="mi-desc">Reich gedeckter Frühstücksteller mit Käsesorten, Oliven, Menemen, Kuymak, Börek u. v. m. – dazu türkischer Tee.</div></div><div class="mi-price">18,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Goldener Start · für 2 Personen</div></div><div class="mi-price">33,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Anka Deluxe · für 4 Personen</div><div class="mi-desc">Brotkörbe, vielfältige Käsesorten, Oliven, Pekmez mit Tahini, Butter, Marmelade, Nutella, Honig, Menemen, Kuymak, Börek – dazu eine große Kupfer-Teekanne.</div></div><div class="mi-price">59,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Zu allen Gerichten wählbar</div><div class="mi-desc">Sucuk 4,50 € · Schafskäse 2,50 € · Grillgemüse 4,50 €</div></div><div class="mi-price muted">Extra</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2"/></svg>Frühstücksgerichte</h3>
+        <div class="menu-item"><div><div class="mi-name">Kuymak</div><div class="mi-desc">Maismehl und Butter mit geschmolzenem Käse. (v)</div></div><div class="mi-price">8,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Rührei / Spiegelei</div><div class="mi-desc">(v)</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Menemen</div><div class="mi-desc">Türkisches Rührei mit Tomaten &amp; Paprika.</div></div><div class="mi-price">8,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Eier mit Sucuk</div><div class="mi-desc">Würzige türkische Rindwurst mit Ei.</div></div><div class="mi-price">7,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20v-6M18 20v-6M12 4a4 4 0 0 0-4 4c0 2 4 6 4 6s4-4 4-6a4 4 0 0 0-4-4Z"/></svg>Kindermenü</h3>
+        <div class="menu-item"><div><div class="mi-name">Pommes · Crispy Chicken · Saft nach Wahl</div><div class="mi-desc">Kleines Menü für unsere jüngsten Gäste.</div></div><div class="mi-price muted">auf Anfrage</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16v-7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7Z"/><path d="M4 15c2 0 2 1.4 4 1.4S10 15 12 15s2 1.4 4 1.4S18 15 20 15"/><path d="M12 4v3"/></svg>Desserts</h3>
+        <div class="menu-item"><div><div class="mi-name">Frittiertes Eis</div><div class="mi-desc">Außen warm, innen eiskalt. (v)</div></div><div class="mi-price">9,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">San Sebastian Cheesecake</div><div class="mi-desc">Cremiger Ofen-Käsekuchen nach spanischer Art. (v)</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Brownie</div><div class="mi-desc">Saftiger Schokoladenkuchen. (v)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Tiramisu</div><div class="mi-desc">Mascarpone mit einem Hauch Kaffee. (v)</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Fruchtiges Tiramisu</div><div class="mi-desc">Mit Mascarpone. (v)</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Red Velvet Cake</div><div class="mi-desc">Samtig-weich mit zarter Cremefüllung. (v)</div></div><div class="mi-price">6,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Carrot Cake</div><div class="mi-desc">Saftig, mit Nüssen &amp; Gewürzen. (v)</div></div><div class="mi-price">6,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Tagesdessert</div><div class="mi-desc">Täglich wechselnde Süßspeise – gern informiert Sie unser Team. (vegane &amp; vegetarische Auswahl)</div></div><div class="mi-price muted">tägl. wechselnd</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h11v3a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5v-3Z"/><path d="M16 12h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M8 4c0 1-1 1.3-1 2.3M11 4c0 1-1 1.3-1 2.3"/></svg>Kaffee</h3>
+        <div class="menu-item"><div><div class="mi-name">Espresso / Doppio</div></div><div class="mi-price">2,60 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Kaffee Crema <span style="color:#B7AA95;font-weight:300">(kl./gr.)</span></div></div><div class="mi-price">3,00 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Cappuccino <span style="color:#B7AA95;font-weight:300">(kl./gr.)</span></div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Latte</div></div><div class="mi-price">4,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Milchkaffee</div></div><div class="mi-price">4,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Türkischer Mokka</div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Matcha Latte</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Hot Chocolate</div></div><div class="mi-price">3,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"/></svg>Tee</h3>
+        <div class="menu-item"><div><div class="mi-name">Türkischer Tee <span style="color:#B7AA95;font-weight:300">(kl./gr.)</span></div></div><div class="mi-price">1,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Türkische Teekanne</div></div><div class="mi-price">11,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Beuteltee</div></div><div class="mi-price">4,00 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Ingwer-Zitronen-Tee</div></div><div class="mi-price">4,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Frischer Pfefferminztee</div></div><div class="mi-price">4,50 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-1 5H7L6 3Z"/><path d="M7 8l1.5 11h7L17 8"/></svg>Klassiker</h3>
+        <div class="menu-item"><div><div class="mi-name">Softdrinks</div><div class="mi-desc">Cola, Fanta, Sprite (0,2 l)</div></div><div class="mi-price">2,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Eistee (Elephant Bay)</div><div class="mi-desc">(0,33 l)</div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Apfelschorle</div><div class="mi-desc">(0,33 l)</div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Saft</div><div class="mi-desc">(0,2 l)</div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Ayran</div><div class="mi-desc">(0,25 l)</div></div><div class="mi-price">2,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Wasser (still / sprudelnd)</div><div class="mi-desc">(0,25 l)</div></div><div class="mi-price">2,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9h10v8a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V9Z"/><path d="M8 9V6M12 9V6M10 4v2"/></svg>Iced Kaffee &amp; Specials</h3>
+        <div class="menu-item"><div><div class="mi-name">Iced Kaffee</div></div><div class="mi-price">3,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Iced Latte</div></div><div class="mi-price">4,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Iced Matcha Latte</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Strawberry Matcha Latte</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Dalgona Coffee</div></div><div class="mi-price">4,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Hibiskus Limonade</div><div class="mi-desc">Homemade</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Mango-Maracuja Limonade</div><div class="mi-desc">Homemade</div></div><div class="mi-price">5,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Virgin Mojito / Mocktail</div><div class="mi-desc">Homemade</div></div><div class="mi-price">6,50 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8l7-5 7 5"/><path d="M5 8v9a7 3 0 0 0 14 0V8"/></svg>Extras &amp; Zusätze</h3>
+        <div class="menu-item"><div><div class="mi-name">Extra Shot</div></div><div class="mi-price">0,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Hafermilch / laktosefreie Milch</div></div><div class="mi-price">0,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Sirup</div></div><div class="mi-price">0,50 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 4 0 0 0 16 0M4 12a8 4 0 0 1 16 0M6 12v3a6 3 0 0 0 12 0v-3"/></svg>Salate in gebratenen Brotschalen</h3>
+        <div class="menu-item"><div><div class="mi-name">Salat Mix</div><div class="mi-desc">Mit Käse &amp; Sonnenblumenkernen. (vegan)</div></div><div class="mi-price">10,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Thunfischsalat</div><div class="mi-desc">Thunfisch, Salat, Ei, Zwiebelringe, Sonnenblumenkerne.</div></div><div class="mi-price">12,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Putenbrustsalat</div><div class="mi-desc">Putenbrust, Avocado, Salatmischung, Sonnenblumenkerne.</div></div><div class="mi-price">13,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 2 7 5s-3 5-7 5-7-2-7-5 3-5 7-5Z"/><path d="M12 14v6"/></svg>Salate mit Pitabrot</h3>
+        <div class="menu-item"><div><div class="mi-name">Griechischer Salat</div><div class="mi-desc">Tomaten, Gurken, Käse, Olivenöl, eingelegte Peperoni. (vegan)</div></div><div class="mi-price">12,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>Meze / Antipasti</h3>
+        <div class="menu-item"><div><div class="mi-name">Hummus</div><div class="mi-desc">Kichererbsen, Knoblauch &amp; Sesampaste. (vegan)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Shakshuka türkische Art</div><div class="mi-desc">Gebratene Auberginen mit Kapia-Paprika, Petersilie, Knoblauch &amp; Walnüssen. (vegan)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Zaziki</div><div class="mi-desc">Joghurt mit Gurken &amp; frischer Minze. (vegetarisch)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Acılı Girit</div><div class="mi-desc">Würzige Käsecreme mit Knoblauch, Sonnenblumenkernen &amp; Chiliflocken. (vegetarisch)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Fesleğen Girit</div><div class="mi-desc">Käsecreme mit Basilikum &amp; Walnüssen. (vegetarisch)</div></div><div class="mi-price">5,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Auberginia</div><div class="mi-desc">Geröstete Aubergine mit Paprika, Petersilie, Walnüssen, Knoblauch &amp; Olivenöl. (vegan)</div></div><div class="mi-price">5,50 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 5 0 0 1 16 0v1a8 5 0 0 1-16 0v-1Z"/><path d="M8 12h.01M12 11h.01M16 12h.01"/></svg>Brot und mehr</h3>
+        <div class="menu-item"><div><div class="mi-name">Hummus auf Bauernbrot</div><div class="mi-desc">Frische Kichererbsencreme auf knusprigem Bauernbrot, getrocknete Tomaten &amp; Rucola.</div></div><div class="mi-price">9,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Auberginia auf Bauernbrot</div><div class="mi-desc">Geröstete Auberginen, Paprika, Petersilie, Walnüsse, Knoblauch &amp; Olivenöl.</div></div><div class="mi-price">9,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Avocado auf Bauernbrot</div><div class="mi-desc">Knuspriges Bauernbrot mit Frischkäse, Avocado &amp; einem Ei.</div></div><div class="mi-price">9,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13H6Z"/><path d="M9 9h6M9 13h6"/></svg>Wrap</h3>
+        <div class="menu-item"><div><div class="mi-name">Hummus-Wrap</div><div class="mi-desc">Hausgemachter Hummus, Kichererbsen &amp; frischer Salat.</div></div><div class="mi-price">6,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Hähnchen-Wrap</div><div class="mi-desc">Hähnchenbrust mit knackigem Salat.</div></div><div class="mi-price">7,50 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Auberginen-Gemüse-Wrap</div><div class="mi-desc">Geröstete Auberginen, buntes Gemüse, Tomaten, Zwiebeln &amp; Salat.</div></div><div class="mi-price">6,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Çiğköfte-Wrap</div><div class="mi-desc">Würzige vegane Bulgurmasse mit Tomatenmark, Granatapfelsirup &amp; Gewürzen, im Wrap mit Salat. (vegan)</div></div><div class="mi-price">6,90 €</div></div>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h14M5 11a7 7 0 0 1 14 0M7 11v5a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-5"/></svg>Sonstiges</h3>
+        <div class="menu-item"><div><div class="mi-name">Eier mit Kavurma</div><div class="mi-desc">Gebratenes Rind- oder Lammfleisch mit Zwiebeln, Gewürzen &amp; Ei.</div></div><div class="mi-price">9,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Griechischer Salat</div><div class="mi-desc">Salat mit Zaziki auf Pitabrot. (v)</div></div><div class="mi-price">13,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Gemischter Meze-Teller (3 Sorten)</div><div class="mi-desc">Drei frei wählbare hausgemachte Meze. (vegan)</div></div><div class="mi-price">7,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Çiğköfte auf dem Teller</div><div class="mi-desc">Würzige vegane Bulgurmasse mit Minze, Petersilie, Salat &amp; Zitrone. (vegan)</div></div><div class="mi-price">10,90 €</div></div>
+        <div class="menu-item"><div><div class="mi-name">Çiğköfte / Girit-Sushi Teller</div><div class="mi-desc">Vegane Bulgurröllchen &amp; mediterrane Frischkäsecreme mit Kräutern, mit Salat serviert.</div></div><div class="mi-price">7,90 €</div></div>
+      </div>
+
+    </div>
+    <p class="menu-note">(v) vegetarisch · (vo/vegan) vegan · Allergene &amp; Zusatzstoffe auf Anfrage. Änderungen vorbehalten.</p>
+  </div>
+</section>
+
+<!-- ===== GALERIE ===== -->
+<section id="galerie">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Impressionen</span>
+      <h2>Ein Blick <em>zu uns</em> herein.</h2>
+      <p>Frühstück, Patisserie und Kaffee – ein Vorgeschmack auf das, was im Anka Café auf Sie wartet.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="zoom g-tall reveal"><img src="images/baklava.jpg" alt="Baklava mit Pistazie" loading="lazy"><span class="gcap">Baklava &amp; Künefe</span></div>
+      <div class="zoom g-wide reveal d1"><img src="images/coffee.jpg" alt="Türkischer Kaffee" loading="lazy"><span class="gcap">Türkischer Mokka</span></div>
+      <div class="zoom reveal d2"><img src="images/cheesecake.jpg" alt="San Sebastian Cheesecake" loading="lazy"><span class="gcap">Hausgemachte Desserts</span></div>
+      <div class="zoom reveal"><img src="images/menemen.jpg" alt="Menemen" loading="lazy"><span class="gcap">Warme Frühstücksgerichte</span></div>
+      <div class="zoom reveal d1"><img src="images/icedlatte.jpg" alt="Iced Latte" loading="lazy"><span class="gcap">Iced Coffee &amp; Specials</span></div>
+      <div class="zoom g-wide reveal d2"><img src="images/baklava-box.jpg" alt="Auswahl an Baklava" loading="lazy"><span class="gcap">Süßes zum Mitnehmen</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SHOWCASE 2 ===== -->
+<section class="showcase" style="background-image:url('images/interior2.jpg');">
+  <div class="inner reveal">
+    <span class="kicker">Mitten in Dreieich</span>
+    <h2>Ihr Platz zum <em>Verweilen</em>.</h2>
+    <p>Hauptstraße 43 – täglich ab 9:30 Uhr geöffnet. Kommen Sie auf einen Kaffee, ein Frühstück oder ein Stück Kuchen vorbei.</p>
+  </div>
+</section>
+
+<!-- ===== GÄSTESTIMMEN ===== -->
+<section class="reviews">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="kicker">Gästestimmen</span>
+      <h2>Das sagen <em>unsere Gäste</em>.</h2>
+      <p>[Echte Google-/Instagram-Stimmen als Text eintragen – keine erfundenen Bewertungen.]</p>
+    </div>
+    <!-- BEWERTUNGEN: laufen automatisch von links nach rechts (Endlosschleife, Pause bei Hover).
+         Die Karten unten nur EINMAL pflegen – für die nahtlose Schleife werden sie per JS dupliziert.
+         Weitere Bewertung = einfach eine weitere <div class="rev-card card-hover"> … </div> ergänzen. -->
+    <div class="rev-marquee reveal">
+      <div class="rev-track" id="revTrack">
+        <div class="rev-card card-hover">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„[Beispiel-Bewertung 1 hier einsetzen.]"</p>
+          <div class="who">[Name / Vorname]</div>
+        </div>
+        <div class="rev-card card-hover">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„[Beispiel-Bewertung 2 hier einsetzen.]"</p>
+          <div class="who">[Name / Vorname]</div>
+        </div>
+        <div class="rev-card card-hover">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„[Beispiel-Bewertung 3 hier einsetzen.]"</p>
+          <div class="who">[Name / Vorname]</div>
+        </div>
+        <div class="rev-card card-hover">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„[Beispiel-Bewertung 4 hier einsetzen.]"</p>
+          <div class="who">[Name / Vorname]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAKT & ÖFFNUNGSZEITEN ===== -->
+<section id="kontakt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Besuch &amp; Kontakt</span>
+      <h2>Kommen Sie <em>vorbei</em>.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p><strong>Anka Café</strong><br>
+          <a class="u" href="https://www.google.com/maps/search/?api=1&query=Anka+Caf%C3%A9+Hauptstra%C3%9Fe+43+63303+Dreieich" target="_blank" rel="noopener">Hauptstraße 43<br>63303 Dreieich</a>
+        </p>
+        <p>Telefon: <a class="u" href="tel:+4961038701060">06103 8701060</a><br>
+          E-Mail: <a class="u" href="mailto:[E-Mail]">[E-Mail]</a>
+        </p>
+        <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Anka+Caf%C3%A9+Hauptstra%C3%9Fe+43+63303+Dreieich" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Route berechnen
+        </a>
+        <a class="btn btn-ghost" href="tel:+4961038701060">Anrufen</a>
+      </div>
+      <div class="hours-card reveal d1">
+        <div class="hours-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Öffnungszeiten
+        </div>
+        <table class="hours-table">
+          <tr data-day="1"><td>Montag</td><td>09:30 – 19:00</td></tr>
+          <tr data-day="2"><td>Dienstag</td><td>09:30 – 19:00</td></tr>
+          <tr data-day="3"><td>Mittwoch</td><td>09:30 – 19:00</td></tr>
+          <tr data-day="4"><td>Donnerstag</td><td>09:30 – 19:00</td></tr>
+          <tr data-day="5"><td>Freitag</td><td>09:30 – 20:00</td></tr>
+          <tr data-day="6"><td>Samstag</td><td>09:30 – 20:00</td></tr>
+          <tr data-day="0"><td>Sonntag</td><td>09:30 – 20:00</td></tr>
+        </table>
+        <div class="hours-foot"><span class="live"></span>Täglich geöffnet – auch am Wochenende.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-band">
+  <div class="wrap reveal">
+    <h2>Lust auf <em>Baklava &amp; Kaffee</em>?</h2>
+    <p>Schauen Sie in der Hauptstraße 43 vorbei – oder rufen Sie kurz an. Wir freuen uns auf Sie.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="tel:+4961038701060">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        06103 8701060
+      </a>
+      <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Anka+Caf%C3%A9+Hauptstra%C3%9Fe+43+63303+Dreieich" target="_blank" rel="noopener">Route berechnen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">anka café</div>
+        <p>Türkisches Café &amp; Patisserie in Dreieich. Hausgemachte Süßspeisen, türkisches Frühstück, Meze und guter Kaffee.</p>
+        <div class="social">
+          <a href="https://www.instagram.com/anka_dreieich/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Entdecken</h4>
+        <a href="#ueber">Über uns</a>
+        <a href="#karte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Öffnungszeiten</a>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <a href="https://www.google.com/maps/search/?api=1&query=Anka+Caf%C3%A9+Hauptstra%C3%9Fe+43+63303+Dreieich" target="_blank" rel="noopener">Hauptstraße 43, 63303 Dreieich</a>
+        <a href="tel:+4961038701060">06103 8701060</a>
+        <a href="mailto:[E-Mail]">[E-Mail]</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Anka Café · Dreieich</span>
+      <span style="display:flex;gap:20px;">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nav = document.getElementById('nav');
+    function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 30); }
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+    if (reduce || !('IntersectionObserver' in window)){
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+    }
+
+    try {
+      var d = new Date().getDay();
+      var row = document.querySelector('.hours-table tr[data-day="'+d+'"]');
+      if (row) row.classList.add('today');
+    } catch(e){}
+
+    document.querySelectorAll('#navlinks a').forEach(function(a){
+      a.addEventListener('click', function(){ document.getElementById('navlinks').classList.remove('open'); });
+    });
+
+    // Bewertungen: für die nahtlose Links-nach-rechts-Schleife die Karten einmal duplizieren
+    var track = document.getElementById('revTrack');
+    if (track && !reduce){
+      var clone = track.innerHTML;
+      var copy = document.createElement('div');
+      copy.innerHTML = clone;
+      Array.prototype.forEach.call(copy.children, function(c){ c.setAttribute('aria-hidden','true'); });
+      track.insertAdjacentHTML('beforeend', copy.innerHTML);
+      track.classList.add('rev-ready');
+    }
+  })();
+</script>
+
+</body>
+</html>
