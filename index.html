@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Einfacher Passwortschutz für die Demo-Seite (Client-seitig) -->
+<script>
+  var password = prompt("Bitte gib das Passwort ein, um die Demo-Seite zu sehen:");
+  if (password !== "Code1292") {
+    alert("Falsches Passwort!");
+    window.location.href = "about:blank"; // Leitet auf eine leere Seite um
+  }
+</script>
+
 <!-- ============================================================
      ANKA CAFÉ – Vorschau-Website (eine Datei, kein Build-Step)
      ------------------------------------------------------------
