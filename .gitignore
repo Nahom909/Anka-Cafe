@@ -1,8 +1,9 @@
-# Bildschirmaufnahmen / Videos nicht ins Repo
-*.mp4
-*.mov
-*.webm
-
-# Betriebssystem-/Editor-Kram
+node_modules/
+.netlify/
+.claude/
+.env
+vorschau-*.jpg
+_*_tmp.html
 Thumbs.db
+desktop.ini
 .DS_Store
